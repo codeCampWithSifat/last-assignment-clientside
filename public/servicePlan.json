@@ -1,0 +1,19 @@
+[
+    {"Plan":"Basic",
+    "name":"Skincare Facial Wellness",
+    "price":100,
+    "description":"There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour",
+    "image":"https://tinypic.host/images/2023/04/10/service3.jpeg"},
+
+    {"Plan":"Medium",
+    "name":"Spa Relex Therapy",
+    "price":150,
+    "description":"There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour",
+    "image":"https://tinypic.host/images/2023/04/10/service2.jpeg"},
+
+    {"Plan":"Ultimate",
+    "name":"Physical Therary Remidial Exercise",
+    "price":200,
+    "description":"There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour",
+    "image":"https://tinypic.host/images/2023/04/10/service1.jpeg"}
+]

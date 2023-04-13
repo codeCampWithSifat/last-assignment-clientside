@@ -1,11 +1,83 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../Context/AuthProvider';
+import useToken from '../../../hooks/useToken';
 
 const SignUp = () => {
     const {register,handleSubmit,formState: { errors },}=useForm();
+    const {createUser, upDateUser, googleLoginSystem} = useContext(AuthContext);
+    const [signUpError, setSignUpError] = useState("")
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+    const [signUpToken, setSignUpToken] = useState("")
+    const [token] = useToken(signUpToken)
+
+    if(token) {
+      navigate(from, { replace: true });
+    }
+
     const handleSignUp = (data) => {
-        console.log(data);
+        setSignUpError("")
+        createUser(data.email, data.password)
+        .then(result => {
+            upDateUser({displayName : data.name})
+            .then(() => {
+               saveUser(data.name, data.email)
+            })
+        })
+        .catch(error => {
+            console.log(error.code);
+            setSignUpError(error.message)
+        })
+    };
+
+    const saveUser = (name,email) => {
+      const user = {name,email};
+      fetch(`http://localhost:5000/users`, {
+        method : "POST",
+        headers : {
+          "Content-Type" : "application/json"
+        },
+        body : JSON.stringify(user)
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.insertedId) {
+          setSignUpToken(email);
+        }
+      })
+    };
+
+    
+
+    const handleGoogleLogin = () => {
+        googleLoginSystem()
+        .then(result => {
+          
+          const user = result.user;
+          const googleUser = {
+            name : user?.displayName,
+            email : user?.email,
+          }
+          fetch(`http://localhost:5000/users/${user?.email}`, {
+            method : "PUT",
+            headers : {
+              "Content-Type" : "application/json"
+            },
+            body : JSON.stringify(googleUser)
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.acknowledged) {
+              setSignUpToken(user?.email)
+            }
+          })
+        })
+        .catch(error => {
+            setSignUpError(error.message)
+        })
     }
   return (
     <div className="h-[600px] flex justify-center items-center ">
@@ -67,6 +139,11 @@ const SignUp = () => {
               {errors.password?.message}
             </p>
           )}
+          {signUpError && (
+            <p role="alert" className="text-red-600 my-2">
+              {signUpError}
+            </p>
+          )}
           
         </div>
         <input
@@ -82,7 +159,7 @@ const SignUp = () => {
         </Link>
       </p>
       <div className="divider">OR</div>
-      <button  className="btn btn-outline w-full">
+      <button onClick={handleGoogleLogin}  className="btn btn-outline w-full">
         Continue With Google
       </button>
     </div>

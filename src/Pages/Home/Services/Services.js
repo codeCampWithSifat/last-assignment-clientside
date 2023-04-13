@@ -13,14 +13,14 @@ const Services = () => {
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.",
     },
     {
-      id: 1,
+      id: 2,
       image: spa3,
       name : "Stone Message",
       description:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.",
     },
     {
-      id: 1,
+      id: 3,
       image: spa1,
       name : "Body Message",
       description:
