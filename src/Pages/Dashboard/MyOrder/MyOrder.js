@@ -9,11 +9,14 @@ const MyOrder = () => {
   const { data: bookings = [], isLoading } = useQuery({
     queryKey: ["bookings"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/bookings?email=${user?.email}`, {
-        headers : {
-          authorization : `bearer ${localStorage.getItem("accessToken")}`
+      const res = await fetch(
+        `http://localhost:5000/bookings?email=${user?.email}`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
         }
-      });
+      );
       const data = await res.json();
       return data;
     },
@@ -37,6 +40,7 @@ const MyOrder = () => {
               <th>Price</th>
               <th>Plan</th>
               <th>Pay</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody className="text-center">
@@ -49,9 +53,18 @@ const MyOrder = () => {
                 <td>{booking.price}</td>
                 <td>{booking.plan}</td>
                 <td>
-                  <Link to={`/dashboard/payment/${booking._id}`}>
-                  <button className="btn btn-sm btn-primary">Pay</button>
-                  </Link>
+                  {booking.price && !booking.paid && (
+                    <Link to={`/dashboard/payment/${booking._id}`}>
+                      <button className="btn btn-sm btn-primary">Pay</button>
+                    </Link>
+                  )}
+                </td>
+                <td>
+                  {booking.price && booking.paid && (
+                    <span className="text-indigo-800 font-bold ">
+                      Paid
+                    </span>
+                  )}
                 </td>
               </tr>
             ))}
