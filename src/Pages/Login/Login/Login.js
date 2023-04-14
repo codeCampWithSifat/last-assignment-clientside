@@ -43,7 +43,7 @@ const Login = () => {
           name: user?.displayName,
           email: user?.email,
         };
-        fetch(`http://localhost:5000/users/${user?.email}`, {
+        fetch(`https://last-assignment-serverside.vercel.app/users/${user?.email}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

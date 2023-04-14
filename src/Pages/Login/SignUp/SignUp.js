@@ -35,7 +35,7 @@ const SignUp = () => {
 
     const saveUser = (name,email) => {
       const user = {name,email};
-      fetch(`http://localhost:5000/users`, {
+      fetch(`https://last-assignment-serverside.vercel.app/users`, {
         method : "POST",
         headers : {
           "Content-Type" : "application/json"
@@ -61,7 +61,7 @@ const SignUp = () => {
             name : user?.displayName,
             email : user?.email,
           }
-          fetch(`http://localhost:5000/users/${user?.email}`, {
+          fetch(`https://last-assignment-serverside.vercel.app/users/${user?.email}`, {
             method : "PUT",
             headers : {
               "Content-Type" : "application/json"

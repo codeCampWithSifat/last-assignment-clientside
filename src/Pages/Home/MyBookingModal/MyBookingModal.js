@@ -14,7 +14,7 @@ const MyBookingModal = ({ bookingModal, setBookingModal }) => {
       plan,
       price,
     };
-    fetch(`http://localhost:5000/bookings`, {
+    fetch(`https://last-assignment-serverside.vercel.app/bookings`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

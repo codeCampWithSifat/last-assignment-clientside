@@ -9,7 +9,7 @@ const ChepestPricingPlan = () => {
   const { data: services = [], isLoading } = useQuery({
     queryKey: ["services"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/services`);
+      const res = await fetch(`https://last-assignment-serverside.vercel.app/services`);
       const data = await res.json();
       return data;
     },

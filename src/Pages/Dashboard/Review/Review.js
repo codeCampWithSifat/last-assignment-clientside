@@ -28,7 +28,7 @@ const Review = () => {
             description: data.description,
           };
           console.log(review);
-          fetch(`http://localhost:5000/reviews`, {
+          fetch(`https://last-assignment-serverside.vercel.app/reviews`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
